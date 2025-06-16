@@ -51,7 +51,7 @@ a {
   position: absolute;
   top: 0;
   left: 0;
-  color: #1dcd9f;
+  color: #3b82f6;
   opacity: 0;
 }
 
@@ -71,7 +71,7 @@ a {
 .button {
   --border-right: 6px;
   --text-stroke-color: rgba(255, 255, 255, 0.6);
-  --animation-color: #1dcd9f;
+  --animation-color: #3b82f6;
   --fs-size: 2em;
   letter-spacing: 3px;
   text-decoration: none;
@@ -123,14 +123,14 @@ a {
   text-transform: uppercase;
   transition: 0.5s;
   transition-property: box-shadow;
-  background: rgb(0, 140, 255);
-  box-shadow: 0 0 20px rgb(0, 140, 255);
+  background: #3b82f6;
+  box-shadow: 0 0 20px #3b82f6;
   text-decoration: none;
 }
 
 .shadow__btn:hover {
-  box-shadow: 0 0 5px rgb(0, 140, 255), 0 0 25px rgb(0, 140, 255),
-    0 0 50px rgb(0, 140, 255), 0 0 100px rgb(0, 140, 255);
+  box-shadow: 0 0 5px #3b82f6, 0 0 25px #3b82f6, 0 0 50px #3b82f6,
+    0 0 100px #3b82f6;
 }
 
 /* Hero mail  */
@@ -144,7 +144,7 @@ a {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   font-size: 0.8rem;
-  color: #1dcd9f;
+  color: #3b82f6;
   text-decoration: none;
   letter-spacing: 2px;
   z-index: 999;
@@ -165,8 +165,8 @@ a {
   display: flex;
   align-items: center;
   /* justify-content: center; */
-  border: 1px solid #17795e;
-  background-color: #209978;
+  border: 1px solid #1e40af;
+  background-color: #3b82f6;
   overflow: hidden;
 }
 
@@ -187,7 +187,7 @@ a {
   transform: translateX(109px);
   height: 100%;
   width: 39px;
-  background-color: #17795e;
+  background-color: #1e40af;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,7 +199,7 @@ a {
 }
 
 .dbutton:hover {
-  background: #17795e;
+  background: #1e40af;
 }
 
 .dbutton:hover .dbutton__text {
@@ -212,11 +212,11 @@ a {
 }
 
 .dbutton:active .dbutton__icon {
-  background-color: #146c54;
+  background-color: #1d4ed8;
 }
 
 .dbutton:active {
-  border: 1px solid #146c54;
+  border: 1px solid #1d4ed8;
 }
 
 /* Journey Section  */
@@ -231,7 +231,7 @@ a {
   transition: all 0.3s ease;
 }
 #mobileMenu a:hover {
-  color: #0d6efd;
+  color: #3b82f6;
 }
 
 /* Hero section */
@@ -260,7 +260,7 @@ a {
   font-family: "Special Gothic Expanded One", sans-serif;
   font-size: 1rem;
   overflow: auto;
-  border-left: 4px solid #0d6efd;
+  border-left: 4px solid #3b82f6;
   transition: transform 0.3s ease;
 }
 
@@ -274,7 +274,7 @@ a {
 
 .view-projects-btn:hover {
   transform: scale(1.05);
-  background-color: #0d6efd;
+  background-color: #3b82f6;
   color: white;
 }
 
