@@ -1,6 +1,6 @@
-<p align="center">
+<!-- <p align="center">
   <img src="https://utkarshutt2706.github.io/utkarshutt2706/assets/cover.png" alt="Banner" width="100%" />
-</p>
+</p> -->
 
 <h1 align="center">Hey there <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" height="30">, I'm Utkarsh Srivastava</h1>
 <h3 align="center">💻 Full Stack Developer | 🚀 Tech Enthusiast | 🧠 Lifelong Learner</h3>
