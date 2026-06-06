@@ -1,0 +1,108 @@
+#contact {
+    background: rgba(255, 255, 255, 0.015);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 88px 32px 100px;
+}
+.contact-inner {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+.contact-inner .sec-label {
+    justify-content: center;
+}
+.contact-inner .section-heading {
+    margin-bottom: 10px;
+}
+.contact-sub {
+    font-size: 15px;
+    color: #555570;
+    line-height: 1.65;
+    margin-bottom: 36px;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+.contact-submit {
+    width: 100%;
+    padding: 13px;
+    background: #00c896;
+    border: none;
+    border-radius: 10px;
+    color: #0a0a0f;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        opacity 0.2s,
+        transform 0.1s;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+}
+.contact-submit:hover {
+    opacity: 0.87;
+}
+.contact-submit:active {
+    transform: scale(0.98);
+}
+.contact-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.contact-sent {
+    padding: 48px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.contact-sent-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 196, 9, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0ac08;
+    font-size: 22px;
+}
+.contact-links {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.contact-link {
+    font-size: 13px;
+    color: #333350;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+.contact-link:hover {
+    color: #00c896;
+    opacity: 1;
+}
+.contact-link svg {
+    width: 14px;
+    height: 14px;
+}
+.error-msg {
+    font-size: 13px;
+    color: #ff6b6b;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    #contact {
+        padding: 64px 20px 80px;
+    }
+}
