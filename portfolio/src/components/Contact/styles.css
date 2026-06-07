@@ -64,11 +64,11 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: rgba(255, 196, 9, 0.08);
+    background: rgba(0, 200, 150, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #e0ac08;
+    color: #00c896;
     font-size: 22px;
 }
 .contact-links {
@@ -105,4 +105,28 @@
     #contact {
         padding: 64px 20px 80px;
     }
+}
+
+.input-valid:focus {
+    border-color: #00c896 !important;
+    background: rgba(0, 200, 150, 0.04);
+}
+
+.input-invalid {
+    border-color: #ff4d4d !important;
+}
+.input-invalid:focus {
+    background: rgba(255, 77, 77, 0.04);
+}
+
+.field-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field-error {
+    font-size: 12px;
+    color: #ff4d4d;
+    padding-left: 2px;
 }

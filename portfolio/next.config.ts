@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
     /* config options here */
     reactCompiler: true,
     output: 'export',
-    basePath: '/utkarshutt2706',
+    basePath: process.env.NODE_ENV === 'production' ? '/utkarshutt2706' : '',
 };
 
 export default nextConfig;

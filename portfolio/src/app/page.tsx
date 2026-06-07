@@ -1,7 +1,3 @@
-'use client';
-
-import { GLOBAL_STYLES } from './styles';
-
 import Achievements from '@/components/Achievements';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -13,9 +9,6 @@ import Skills from '@/components/Skills';
 export default function Portfolio() {
     return (
         <div style={{ background: '#0A0A0F', minHeight: '100vh' }}>
-            {/* Inject global styles */}
-            <style>{GLOBAL_STYLES}</style>
-
             {/* Fixed navigation */}
             <Navbar />
 
