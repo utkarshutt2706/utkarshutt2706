@@ -11,7 +11,7 @@
 }
 .footer-copy {
     font-size: 12px;
-    color: #222238;
+    color: #999999;
 }
 .footer-links {
     display: flex;
@@ -19,7 +19,7 @@
 }
 .footer-link {
     font-size: 12px;
-    color: #222238;
+    color: #999999;
     text-decoration: none;
     transition: color 0.2s;
 }

@@ -1,15 +1,5 @@
 'use client';
 
-// ─────────────────────────────────────────────────────────────────
-// CONTACT FORM SETUP (Next.js):
-//   This form currently does a client-side mock submission.
-//   To wire up real email delivery:
-//   1. Install Resend: `npm install resend`
-//   2. Create /app/api/contact/route.ts (see README for template)
-//   3. Change the fetch URL below to "/api/contact"
-//   4. Add RESEND_API_KEY to your .env.local
-// ─────────────────────────────────────────────────────────────────
-
 import { useState } from 'react';
 
 import FadeIn from '@/components/FadeIn';
@@ -18,35 +8,97 @@ import './styles.css';
 
 type Status = null | 'sending' | 'sent' | 'error';
 
+interface FormData {
+    name: string;
+    email: string;
+    message: string;
+}
+
+type Touched = Record<keyof FormData, boolean>;
+
+function isValidEmail(email: string): boolean {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+        email.trim(),
+    );
+}
+
+function validate(data: FormData): Record<keyof FormData, string> {
+    return {
+        name: data.name.trim() ? '' : 'Name is required.',
+        email: !data.email.trim()
+            ? 'Email is required.'
+            : !isValidEmail(data.email)
+              ? 'Enter a valid email address.'
+              : '',
+        message: data.message.trim() ? '' : 'Message is required.',
+    };
+}
+
+function inputClass(
+    field: keyof FormData,
+    errors: Record<keyof FormData, string>,
+    touched: Touched,
+): string {
+    if (!touched[field]) return 'form-input';
+    return errors[field]
+        ? 'form-input input-invalid'
+        : 'form-input input-valid';
+}
+
 export default function Contact() {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
         message: '',
     });
+    const [touched, setTouched] = useState<Touched>({
+        name: false,
+        email: false,
+        message: false,
+    });
     const [status, setStatus] = useState<Status>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    const errors = validate(formData);
+    const isFormValid = !Object.values(errors).some(Boolean);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleBlur = (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => setTouched((prev) => ({ ...prev, [e.target.name]: true }));
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Force-reveal all validation errors at once
+        setTouched({ name: true, email: true, message: true });
+        if (!isFormValid) return;
+
         setStatus('sending');
 
         try {
-            // ── Swap this for a real API call once you set up /api/contact ──
-            // const res = await fetch("/api/contact", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify(formData),
-            // });
-            // if (!res.ok) throw new Error("Failed");
-
-            await new Promise((r) => setTimeout(r, 1200)); // mock delay
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(data.error ?? 'An unknown error occurred');
+            }
             setStatus('sent');
             setFormData({ name: '', email: '', message: '' });
-        } catch {
+            setTouched({ name: false, email: false, message: false });
+            setTimeout(() => setStatus(null), 5000);
+        } catch (error) {
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : 'An unknown error occurred',
+            );
             setStatus('error');
         }
     };
@@ -67,25 +119,18 @@ export default function Contact() {
                     <FadeIn delay={100}>
                         {status === 'sent' ? (
                             <div className='contact-sent'>
-                                <div className='contact-sent-icon'>⚠︎</div>
+                                <div className='contact-sent-icon'>✔</div>
                                 <p
                                     style={{
-                                        color: '#e0ac08',
+                                        color: '#00c896',
                                         fontSize: 18,
                                         fontWeight: 600,
                                     }}
                                 >
-                                    WIP!
+                                    Sent!
                                 </p>
                                 <p style={{ color: '#555570', fontSize: 14 }}>
-                                    Please mail me at{' '}
-                                    <a
-                                        style={{ color: '#e0ac08' }}
-                                        href={`mailto:${SOCIAL_LINKS.email}`}
-                                    >
-                                        {SOCIAL_LINKS.email} ↗
-                                    </a>
-                                    .
+                                    I will get back to you soon!
                                 </p>
                             </div>
                         ) : (
@@ -94,42 +139,79 @@ export default function Contact() {
                                 onSubmit={handleSubmit}
                                 noValidate
                             >
-                                <input
-                                    className='form-input'
-                                    type='text'
-                                    name='name'
-                                    placeholder='Your name'
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                    autoComplete='name'
-                                />
-                                <input
-                                    className='form-input'
-                                    type='email'
-                                    name='email'
-                                    placeholder='Email address'
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    autoComplete='email'
-                                />
-                                <textarea
-                                    className='form-input'
-                                    name='message'
-                                    placeholder='Tell me about your project or role...'
-                                    rows={5}
-                                    style={{
-                                        resize: 'vertical',
-                                        minHeight: 120,
-                                    }}
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    required
-                                />
+                                <div className='field-wrap'>
+                                    <input
+                                        className={inputClass(
+                                            'name',
+                                            errors,
+                                            touched,
+                                        )}
+                                        type='text'
+                                        name='name'
+                                        placeholder='Your name'
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        autoComplete='name'
+                                    />
+                                    {touched.name && errors.name && (
+                                        <span className='field-error'>
+                                            {errors.name}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className='field-wrap'>
+                                    <input
+                                        className={inputClass(
+                                            'email',
+                                            errors,
+                                            touched,
+                                        )}
+                                        type='email'
+                                        name='email'
+                                        placeholder='Email address'
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        autoComplete='email'
+                                    />
+                                    {touched.email && errors.email && (
+                                        <span className='field-error'>
+                                            {errors.email}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className='field-wrap'>
+                                    <textarea
+                                        className={inputClass(
+                                            'message',
+                                            errors,
+                                            touched,
+                                        )}
+                                        name='message'
+                                        placeholder='Tell me about your project or role...'
+                                        rows={5}
+                                        style={{
+                                            resize: 'vertical',
+                                            minHeight: 120,
+                                        }}
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {touched.message && errors.message && (
+                                        <span className='field-error'>
+                                            {errors.message}
+                                        </span>
+                                    )}
+                                </div>
+
                                 {status === 'error' && (
                                     <p className='error-msg'>
-                                        Something went wrong. Please try again.
+                                        {error ||
+                                            'Something went wrong. Please try again.'}
                                     </p>
                                 )}
                                 <button

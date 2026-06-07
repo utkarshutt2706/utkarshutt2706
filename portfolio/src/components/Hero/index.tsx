@@ -1,3 +1,5 @@
+'use client';
+
 // ─────────────────────────────────────────────────────────────────
 // PHOTO INSTRUCTIONS:
 //   1. Add your passport photo to: /public/photo.jpg  (or .png / .webp)

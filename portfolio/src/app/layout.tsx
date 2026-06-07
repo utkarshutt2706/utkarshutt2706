@@ -1,21 +1,19 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
-
 export const metadata: Metadata = {
-    title: 'Utkarsh Srivastava · Software Engineer',
+    title: 'Utkarsh Srivastava — Senior Full Stack Engineer',
     description:
-        'Software engineer specializing in building performant, accessible, and delightful web applications. Currently @ Unthinkable Solutions.',
+        'Senior Full Stack Engineer with 6+ years building enterprise-grade platforms across government, SaaS, and transportation domains.',
+    openGraph: {
+        title: 'Utkarsh Srivastava — Senior Full Stack Engineer',
+        description:
+            'Senior Full Stack Engineer with 6+ years building enterprise-grade platforms.',
+        url: 'https://utkarshutt2706.github.io/utkarshutt2706',
+        siteName: 'Utkarsh Srivastava',
+        locale: 'en_US',
+        type: 'website',
+    },
 };
 
 export default function RootLayout({
@@ -24,10 +22,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html
-            lang='en'
-            className={`${geistSans.variable} ${geistMono.variable}`}
-        >
+        <html lang='en'>
             <body>{children}</body>
         </html>
     );
